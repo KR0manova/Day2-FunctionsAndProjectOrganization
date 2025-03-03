@@ -142,7 +142,7 @@ psth = (
     .rename('spike_count')
     .reset_index()
 )
-psth
+#psth
 psth = (
     psth
     .groupby(['time', 'contrast_left', 'brain_area'], observed=True)
@@ -151,7 +151,7 @@ psth = (
     .rename('avg_spike_count')
     .reset_index()
 )
-psth
+#psth
 
 def compute_psths(data, time_bins):
     psth['avg_spike_rate'] = psth['avg_spike_count'] * bin_interval
@@ -164,8 +164,14 @@ psth
 # %% Plot PSTHs
 # Make a `plot_psths(psth)` function here, returning the `g` variable.
 import seaborn as sns
-g = sns.FacetGrid(data=psth, col='brain_area', col_wrap=2)
-g.map_dataframe(sns.lineplot, x='time', y='avg_spike_count', hue='contrast_left')
-g.add_legend()
-g.savefig('PSTHs.png')
+
+def plot_psths(psth):
+    g = sns.FacetGrid(data=psth, col='brain_area', col_wrap=2)
+    g.map_dataframe(sns.lineplot, x='time', y='avg_spike_count', hue='contrast_left')
+    g.add_legend()
+    g.savefig('PSTHs.png')
+    return g
+
+g=plot_psths(psth)
+g
 
