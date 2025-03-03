@@ -113,14 +113,17 @@ merged.info()
 # Exercise: Make a `compute_time_bins(time, bin_interval)` function, returning the `time_bins` variable.
 
 import numpy as np
+time = merged['time']
+bin_interval = 0.05
+
 def compute_time_bins(time, bin_interval):
-    time = merged['time']
     time = np.round(time, decimals=6)  # Round time to the nearest microsecond, to reduce floating point errors.
-    bin_interval = 0.05
     time_bins = np.floor(time /bin_interval) * bin_interval  # Round down to the nearest time bin start
     time_bins
     return time_bins
 
+time_bins=compute_time_bins(time, bin_interval)
+print(time_bins)
 
 # %% filter out stimuli with contrast on the right.
 # No function needed here for this exercise.
