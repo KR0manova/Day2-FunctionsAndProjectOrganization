@@ -152,7 +152,12 @@ psth = (
     .reset_index()
 )
 psth
-psth['avg_spike_rate'] = psth['avg_spike_count'] * bin_interval
+
+def compute_psths(data, time_bins):
+    psth['avg_spike_rate'] = psth['avg_spike_count'] * bin_interval
+    return psth
+
+psth=compute_psths(psth, time_bins)
 psth
 
 
