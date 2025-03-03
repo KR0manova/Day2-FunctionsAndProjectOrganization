@@ -65,9 +65,13 @@ print(spikes)
 
 import xarray as xr
 
-dset = xr.load_dataset(filename)
-cells = dset['brain_groups'].to_dataframe()
-cells
+def extract_cells(filename):
+    dset = xr.load_dataset(filename)
+    cells = dset['brain_groups'].to_dataframe()
+    return cells
+
+cells=extract_cells(filename)
+print(cells)
 
 # %% Merge and Compress Extracted Data
 # Exercise: Make a `merge_data(trials, cells, spikes)` function, returning the `merged` variable.
