@@ -77,30 +77,35 @@ print(cells)
 # Exercise: Make a `merge_data(trials, cells, spikes)` function, returning the `merged` variable.
 
 import pandas as pd
-merged = pd.merge(left=cells, left_index=True, right=spikes, right_on='spike_cell')
-merged = pd.merge(left=trials, right=merged, left_index=True, right_on='spike_trial').reset_index(drop=True)
-merged.columns
-merged = (merged
-    .rename(columns=dict(
-        brain_groups="brain_area",
-        spike_trial="trial_id",
-        spike_cell="cell_id",
-        spike_time="time"
-    ))
-    [[
-        'trial_id',
-        'contrast_left',
-        'contrast_right',
-        'stim_onset',
-        'cell_id',
-        'brain_area',
-        'time'
-    ]]
-    .astype(dict(   
-        brain_area = 'category',
-    ))
-    # 
-)
+
+def merge_data(trials, cells, spikes):
+    merged = pd.merge(left=cells, left_index=True, right=spikes, right_on='spike_cell')
+    merged = pd.merge(left=trials, right=merged, left_index=True, right_on='spike_trial').reset_index(drop=True)
+    merged.columns
+    merged = (merged
+        .rename(columns=dict(
+            brain_groups="brain_area",
+            spike_trial="trial_id",
+            spike_cell="cell_id",
+            spike_time="time"
+        ))
+        [[
+            'trial_id',
+            'contrast_left',
+            'contrast_right',
+            'stim_onset',
+            'cell_id',
+            'brain_area',
+            'time'
+        ]]
+        .astype(dict(   
+            brain_area = 'category',
+        ))
+        # 
+    )
+    return merged
+
+merged=merge_data(trials, cells, spikes)
 merged.info()
 
 
@@ -108,11 +113,13 @@ merged.info()
 # Exercise: Make a `compute_time_bins(time, bin_interval)` function, returning the `time_bins` variable.
 
 import numpy as np
-time = merged['time']
-time = np.round(time, decimals=6)  # Round time to the nearest microsecond, to reduce floating point errors.
-bin_interval = 0.05
-time_bins = np.floor(time /bin_interval) * bin_interval  # Round down to the nearest time bin start
-time_bins
+def compute_time_bins(time, bin_interval):
+    time = merged['time']
+    time = np.round(time, decimals=6)  # Round time to the nearest microsecond, to reduce floating point errors.
+    bin_interval = 0.05
+    time_bins = np.floor(time /bin_interval) * bin_interval  # Round down to the nearest time bin start
+    time_bins
+    return time_bins
 
 
 # %% filter out stimuli with contrast on the right.
