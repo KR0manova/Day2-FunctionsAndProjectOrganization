@@ -48,9 +48,16 @@ print(trials)
 
 import xarray as xr
 
-dset = xr.load_dataset(filename)
-spikes = dset[['spike_trial', 'spike_cell', 'spike_time']].to_dataframe()
-spikes
+def extract_spikes(filename):
+    dset = xr.load_dataset(filename)
+    spikes = dset[['spike_trial', 'spike_cell', 'spike_time']].to_dataframe()
+    return spikes
+
+#dset = xr.load_dataset(filename)
+#spikes = dset[['spike_trial', 'spike_cell', 'spike_time']].to_dataframe()
+#spikes
+spikes = extract_spikes(filename)
+print(spikes)
 
 
 # %% Extract Cell-Level Data
