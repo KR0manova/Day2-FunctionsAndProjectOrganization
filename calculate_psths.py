@@ -1,3 +1,7 @@
+# %% Import library
+from importlib import reload
+reload(psth_utils)
+#from psth_utils import download_data
 
 # %% Script Parameters
 
@@ -6,41 +10,21 @@ filename = 'data.nc'
 
 # %% Download Data
 # Exercise (Example): Make a download_data(url, filename) function:
-
-def download_data(url, filename):
-    from pathlib import Path
-    import owncloud
-
-    client = owncloud.Client.from_public_link(url)
-    client.get_file('/', filename)
-
-    if Path(filename).exists():
-        print('Download Succeeded.')
-
-    return None
-
-
-download_data(url=url, filename=filename)
+reload(psth_utils)
+psth_utils.download_data(url=url, filename=filename)
 
 # %% Load Data
 # Exercise: Make a `load_data(filename)` function, returning the `dset` variable.
 
-
-
 # %% Extract Experiment-Level Data
 # Exercise: Make an `extract_trials(filename)` function, returning the `trials` variable.
-
-import xarray as xr
-
-def extract_trials(filename):
-    dset = xr.load_dataset(filename)
-    trials = dset[['contrast_left', 'contrast_right', 'stim_onset']].to_dataframe()
-    return trials
     
 #dset = xr.load_dataset(filename)
 #trials = dset[['contrast_left', 'contrast_right', 'stim_onset']].to_dataframe()
 #trials
-trials = extract_trials(filename)
+reload(psth_utils)
+trials = psth_utils.extract_trials(filename)
+#trials = extract_trials(filename)
 print(trials)
 
 # %% Extract Spike-Time Data
@@ -175,3 +159,5 @@ def plot_psths(psth):
 g=plot_psths(psth)
 g
 
+
+# %%
