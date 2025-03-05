@@ -10,9 +10,14 @@ def download_data(url, filename):
 
     return None
 
-
 def extract_trials(filename):
     import xarray as xr
     dset = xr.load_dataset(filename)
     trials = dset[['contrast_left', 'contrast_right', 'stim_onset']].to_dataframe()
     return trials
+
+def extract_spikes(filename):
+    import xarray as xr
+    dset = xr.load_dataset(filename)
+    spikes = dset[['spike_trial', 'spike_cell', 'spike_time']].to_dataframe()
+    return spikes

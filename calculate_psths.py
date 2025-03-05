@@ -30,17 +30,11 @@ print(trials)
 # %% Extract Spike-Time Data
 # Exercise: Make an `extract_spikes(filename)` function, returning the `spikes` variable.
 
-import xarray as xr
-
-def extract_spikes(filename):
-    dset = xr.load_dataset(filename)
-    spikes = dset[['spike_trial', 'spike_cell', 'spike_time']].to_dataframe()
-    return spikes
-
+reload(psth_utils)
+spikes = psth_utils.extract_spikes(filename)
 #dset = xr.load_dataset(filename)
 #spikes = dset[['spike_trial', 'spike_cell', 'spike_time']].to_dataframe()
 #spikes
-spikes = extract_spikes(filename)
 print(spikes)
 
 
