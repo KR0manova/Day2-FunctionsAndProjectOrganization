@@ -1,8 +1,7 @@
 # %% Import library
-from importlib import reload
-import psth_utils
-reload(psth_utils)
-#from psth_utils import download_data
+#from importlib import reload
+
+import src.psth.psth_utils as psth_utils
 
 # %% Script Parameters
 
@@ -11,7 +10,6 @@ filename = 'data.nc'
 
 # %% Download Data
 # Exercise (Example): Make a download_data(url, filename) function:
-reload(psth_utils)
 psth_utils.download_data(url=url, filename=filename)
 
 # %% Load Data
@@ -23,7 +21,7 @@ psth_utils.download_data(url=url, filename=filename)
 #dset = xr.load_dataset(filename)
 #trials = dset[['contrast_left', 'contrast_right', 'stim_onset']].to_dataframe()
 #trials
-reload(psth_utils)
+#reload(psth_utils)
 trials = psth_utils.extract_trials(filename)
 #trials = extract_trials(filename)
 print(trials)
@@ -31,7 +29,7 @@ print(trials)
 # %% Extract Spike-Time Data
 # Exercise: Make an `extract_spikes(filename)` function, returning the `spikes` variable.
 
-reload(psth_utils)
+#reload(psth_utils)
 spikes = psth_utils.extract_spikes(filename)
 #dset = xr.load_dataset(filename)
 #spikes = dset[['spike_trial', 'spike_cell', 'spike_time']].to_dataframe()
@@ -42,14 +40,14 @@ print(spikes)
 # %% Extract Cell-Level Data
 # Exercise: Make an `extract_cells(filename)` function, returning the `cells` variable.
 
-reload(psth_utils)
+#reload(psth_utils)
 cells=psth_utils.extract_cells(filename)
 print(cells)
 
 # %% Merge and Compress Extracted Data
 # Exercise: Make a `merge_data(trials, cells, spikes)` function, returning the `merged` variable.
 
-reload(psth_utils)
+#reload(psth_utils)
 merged=psth_utils.merge_data(trials, cells, spikes)
 merged.info()
 
@@ -57,7 +55,7 @@ merged.info()
 # %% Calculate Time Bins for PSTH
 # Exercise: Make a `compute_time_bins(time, bin_interval)` function, returning the `time_bins` variable.
 
-reload(psth_utils)
+#reload(psth_utils)
 
 time = merged['time']
 bin_interval = 0.05
@@ -75,7 +73,7 @@ filtered
 # %% Make PSTHs
 # Exercise: Make a `compute_psths(data, time_bins)` function here, returning the `psth` variable.
 
-reload(psth_utils)
+#reload(psth_utils)
 psth=psth_utils.compute_psths(filtered, time_bins, bin_interval)
 psth
 
@@ -83,7 +81,7 @@ psth
 # %% Plot PSTHs
 # Make a `plot_psths(psth)` function here, returning the `g` variable.
 
-reload(psth_utils)
+#reload(psth_utils)
 
 g=psth_utils.plot_psths(psth)
 g
